@@ -1,0 +1,46 @@
+    *{
+        padding: 0px;  
+        margin:0px; 
+        display: block;
+      }
+      #text{
+        position: fixed;
+        width: 100%;
+        top: 0;
+        left: 0;
+        z-index: 9999999999;
+        background: white;
+        text-align: center;
+      }
+      .panorama-perspective{
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        margin:auto;
+      }
+      .panorama-perspective .panorama-div{
+        "transform-style": "preserve-3d";
+        "width" : "100%";
+        "height" : "100%";
+      }
+      .panorama-perspective .panorama-img{
+        position: absolute;
+        opacity: 0.9;
+      }
+      .panorama-desktop{
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: 9999999999;
+        cursor: -webkit-grab;
+      }
+      .panorama-main{
+        background: #000;
+        width: 100%;
+        height: 100%;
+        position: fixed;
+      }

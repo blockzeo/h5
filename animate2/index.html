@@ -1,0 +1,42 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="HandheldFriendly" content="true">
+    <meta http-equiv="Cache-Control" content="no-siteapp" >
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no, email=no">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="msapplication-tap-highlight" content="no">
+    <title>H5 DEMO</title>
+    <link rel="stylesheet" href="assets/css/plugin.min.css">
+    <link rel="stylesheet" href="assets/css/style.css?v=2">
+    <style>
+      #main{
+        background-repeat-y: no-repeat;
+        background-size: cover;
+        width:450px;
+        height:500px;
+      }
+      body{
+        position: fixed;
+      }
+    </style>
+  </head>
+  <body>
+    <div  id="main" class="div-center"></div>
+    <script src="assets/js/js.js"></script>
+    <script src="assets/js/bganimate.js"></script>
+    <button onclick="bg.stop()">停止</button>
+    <button onclick="bg.play()">开始</button>
+    <script>
+      var bg;
+      $(function(){
+        bg = new bganimate("assets/images/timg.jpg", "#main", 16, 100);//图片源, 显示的id ,帧数 ,速度
+      })
+
+    </script>
+  </body>
+</html>

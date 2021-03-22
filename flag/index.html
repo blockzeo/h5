@@ -1,0 +1,159 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="HandheldFriendly" content="true">
+    <meta http-equiv="Cache-Control" content="no-siteapp" >
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no, email=no">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="msapplication-tap-highlight" content="no">
+    <title>H5 DEMO</title>
+    <link rel="stylesheet" href="assets/css/plugin.min.css">
+    <link rel="stylesheet" href="assets/css/style.css?v=2">
+    <link rel="stylesheet" href="assets/css/flag.css?v=2">
+    <style>
+      #main1{
+        padding: 100px;
+      }
+      #main{
+        display: flex;
+        background-repeat: no-repeat;
+        background-size: 450px;
+        width:450px;
+        transform: translate(0, -50px);
+        -moz-transform: translate(0, -50px);
+        -webkit-transform: translate(0, -50px);
+        -o-transform: translate(0, -50px);
+      }
+      #main > div{
+        /* height: 100%;
+        background-size: 450px;
+        background-repeat: no-repeat; */
+      }
+      @keyframes flag
+      {
+        0%  {transform: translate(0, -50px);}
+        50%  {transform: translate(0, 50px);}
+        100%  {transform: translate(0, -50px);}
+      }
+
+      @-moz-keyframes flag /* Firefox */
+      {
+        0%  {-moz-transform: translate(0, -50px);}
+        50%  {-moz-transform: translate(0, 50px);}
+        100%  {-moz-transform: translate(0, -50px);}
+      }
+
+      @-webkit-keyframes flag /* Safari 和 Chrome */
+      {
+        0%  {-webkit-transform: translate(0, -50px);}
+        50%  {-webkit-transform: translate(0, 50px);}
+        100%  {-webkit-transform: translate(0, -50px);}
+      }
+      @-o-keyframes flag /* Opera */
+      {
+        0%  {-o-transform: translate(0, -50px);}
+        50%  {-o-transform: translate(0, 50px);}
+        100%  {-o-transform: translate(0, -50px);}
+      }
+      @keyframes allFlag
+      {
+        0%  {transform: translate(0, 50px);}
+        50%  {transform: translate(0, -50px);}
+        100%  {transform: translate(0, 50px);}
+      }
+
+      @-moz-keyframes allFlag /* Firefox */
+      {
+        0%  {-moz-transform: translate(0, 50px);}
+        50%  {-moz-transform: translate(0, -50px);}
+        100%  {-moz-transform: translate(0, 50px);}
+      }
+
+      @-webkit-keyframes allFlag /* Safari 和 Chrome */
+      {
+        0%  {-webkit-transform: translate(0, 50px);}
+        50%  {-webkit-transform: translate(0, -50px);}
+        100%  {-webkit-transform: translate(0, 50px);}
+      }
+      @-o-keyframes allFlag /* Opera */
+      {
+        0%  {-o-transform: translate(0, 50px);}
+        50%  {-o-transform: translate(0, -50px);}
+        100%  {-o-transform: translate(0, 50px);}
+      }
+
+      body{
+        position: fixed;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="main1">
+      <div id="main" class="div-center"></div>
+    </div>
+
+    <script src="assets/js/js.js"></script>
+    <script src="assets/js/bganimate.js"></script>
+    <button onclick="bg.stop()">停止</button>
+    <button onclick="bg.play()">开始</button>
+    <script>
+      var bg;
+      $(function(){
+        // bg = new bganimate("assets/images/flag.jpg", "#main", 16, 100);//图片源, 显示的id ,帧数 ,速度
+        const src =  "assets/images/flag.png";
+        const num = 1000;
+        const s = 2;
+        const ss = 2;
+        let text = ``;
+        for(var i = 0; i < num ; i++){
+          text = text + `@keyframes flag` + i + `
+          {
+            0%  {transform: translate(0, -` + (50 - 50/num*i) + `px);opacity: 0.5;}
+            50%  {transform: translate(0, ` + (50 - 50/num*i) + `px);opacity: 1;}
+            100%  {transform: translate(0, -` + (50 - 50/num*i) + `px);opacity: 0.5;}
+          }`
+        }
+        console.log(text)
+        setImg("#main", src, (ww, hh) => {
+          $('#main').css({
+            "height" : hh,
+            // "animation": "allFlag " + s + "s ease-in-out infinite alternate",
+            // "-moz-animation": "allFlag " + s + "s ease-in-out infinite alternate",
+            // "-webkit-animation": "allFlag " + s + "s ease-in-out infinite alternate",
+            // "-o-animation": "allFlag " + s + "s ease-in-out infinite alternate",
+          });
+          for(var i = 0; i < num ; i ++){
+            const $div = $("<div>").css({
+              "width": (450 / num) + "px",
+              "background-image": "url(" + src + ")",
+              "background-size": ww,
+              "background-position": "-" + (ww/num * i) + "px",
+              "opacity" : "0",
+              "animation": "flag" + (num-i) + " " + ss/2 + "s ease-in-out " + i/(num/ss) + "s infinite normal",
+              "-moz-animation": "flag" + (num-i) + " " + ss/2 + "s ease-in-out " + i/(num/ss) + "s infinite normal",
+              "-webkit-animation": "flag" + (num-i) + " " + ss/2 + "s ease-in-out " + i/(num/ss) + "s infinite normal",
+              "-o-animation": "flag" + (num-i) + " " + ss/2 + "s ease-in-out " + i/(num/ss) + "s infinite normal",
+            });
+            $('#main').append($div);
+          }
+        })
+      })
+      function setImg(id, src, fun){
+        var nimg = new Image();
+        nimg.src = src;
+        var a = nimg.onload = function () {
+          w = nimg.width;
+          h = nimg.height;
+          ww = $(id).width()
+          hh = ww/w*h
+          // $("#main").css("background-position-x", "-" + 9* (a/30) + "px")
+          fun(ww, hh);
+        }
+      }
+    </script>
+  </body>
+</html>

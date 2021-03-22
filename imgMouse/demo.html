@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<title>Examples</title>
+		<meta name="description" content="">
+		<meta name="keywords" content="">
+		<link href="" rel="stylesheet">
+		<style>
+			body{
+				background-image: url('img/bg.jpg');
+				margin:0;
+			}
+			.main{
+				width: 1300px;
+				height: 700px;
+				margin: auto;
+			    position: relative;
+			    perspective: 600px;
+			    -webkit-perspective: 601px;
+			    -moz-perspective: 601px;
+			    -webkit-transition: top .5s;
+			}
+			.back{
+				width: 100%;
+				height: 100%;
+    			transform: translateZ(-100px);
+    			margin: auto;
+    			transition: all 0.5s;
+    			background: url("assets/images/img.jpg") no-repeat center center;
+    			background-size: cover;
+    			-webkit-transition: all 0.5s;
+    			-moz-transition: all 0.5s;
+    			-o-transition: all 0.5s;
+    			border: 4px solid black;
+			}
+			.view{
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 20px;
+				background-color: #000;
+				color: white;
+			}
+		</style>
+	</head>
+	<body>
+		<!--<div class="view"></div>-->
+		<div class="main">
+			<img class="back" src="">
+		</div>
+	</body>
+	<script src="assets/js/plugin.bs.min.js"></script>
+	<script>
+		var style = {};
+		var time = 1;
+		$(document).mousemove(function(e){
+			var bodyWidth = $("body").width();
+			var mainWidth = $(".main").width();
+		  	var mainHeight = $(".main").height();
+		  	var x = e.pageX - bodyWidth/2;
+		  	var y = e.pageY - mainHeight/2;
+			time++;
+			if(time < 10){
+				return;
+			}
+			time = 1;
+		  	var xDeg = -360*Math.atan(y/mainHeight/2)/(2*Math.PI)/10;
+		  	var yDeg = -360*Math.atan(x/(mainWidth/2))/(2*Math.PI)/20;
+		  	$(".view").text(x + ", " + y + "," + xDeg + "," + yDeg);
+		  	var css = "translateZ(-100px) rotateX(" + xDeg + "deg) rotateY(" + yDeg + "deg)";
+		  	$(".back").css("transform",css);
+		});
+		$(function(){
+			
+		});
+	</script>
+	</html>

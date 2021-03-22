@@ -1,0 +1,109 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>H5 DEMO</title>
+    <link rel="stylesheet" href="assets/css/turntable.css">
+    <style>
+      #turntable{
+        perspective: 400px;
+        width: 400px;
+        height: 200px;
+        margin:200px auto;
+      }
+      .turntable-div{
+        position: absolute;
+        width: 140px; 
+      }
+    </style>
+  </head>
+  <body>
+    <div id="turntable">
+      <div class="turntable-div turntable-div1" style="transform:rotateX(0deg) rotateY(180deg) translateZ(-100px);z-index:2">
+        <img src="assets/images/1.jpg" alt="" width="140px">
+      </div>
+      <div class="turntable-div turntable-div2" style="transform:rotateX(60deg) rotateY(180deg) translateZ(-100px) ">
+        <img src="assets/images/2.jpg" alt="" width="140px">
+      </div>
+      <div class="turntable-div turntable-div3" style="transform:rotateX(120deg) rotateY(180deg) translateZ(-100px) ">
+        <img src="assets/images/3.jpg" alt="" width="140px">
+      </div>
+      <div class="turntable-div turntable-div4" style="transform:rotateX(180deg) rotateY(180deg) translateZ(-100px) ">
+        <img src="assets/images/4.jpg" alt="" width="140px">
+      </div>
+      <div class="turntable-div turntable-div5" style="transform:rotateX(240deg) rotateY(180deg) translateZ(-100px) ">
+        <img src="assets/images/5.jpg" alt="" width="140px">
+      </div>
+      <div class="turntable-div turntable-div6" style="transform:rotateX(300deg) rotateY(180deg) translateZ(-100px) ">
+        <img src="assets/images/6.jpg" alt="" width="140px">
+      </div>
+    </div>
+    <button onclick="startInter(5)">开始</button>
+    <script src="assets/js/plugin.min.js"></script>
+    <script src="assets/js/turntable.js"></script>
+    <script>
+      var width = 140;
+      var speed = 1;//速度
+      var shape = 6;//形状
+      var turnTop = 0;
+      var turnLeft = 0;
+
+      var rotate = 360/shape;//每个角的角度
+      var rotateX = [];
+      var translateZ = width/2/Math.tan(rotate*Math.PI/360);
+
+      var interval = 1;
+      var intering = false;
+      set("#turntable");
+      function set(id){
+        for(var a = 0;a < shape;a++){
+          rotateX[a] = a*rotate;
+          var roX = rotateX[a];
+          var index = 9;
+          if(roX > 60 && roX < 300) index = 0;
+          $(id + " .turntable-div").eq(a).css({
+            "transform":"rotateX(" + roX + "deg)  rotateY(180deg) translateZ(-" + translateZ + "px)",
+            "z-index" : index,
+            "width" : width,
+            "height" : width,
+            "top" : turnTop + "px",
+            "left" : turnLeft + "px"
+          });
+        }
+      }
+      function startInter(time){
+        if(intering) return;
+        intering = true;
+        var a = 1;
+        var interval = setInterval(function(){
+          changeRo("#turntable");
+          a++;
+          if(!time) time = 1;
+          var b = time * rotate;
+          if(b < a){
+            clearInterval(interval);
+            intering = false;
+          }
+        },1);
+      }
+      function stopInter(){
+        clearInterval(interval);
+        intering = false;
+      }
+      function changeRo(id){
+        $.each($(id).find(".turntable-div"),function(index, dataItem){
+          var roX = rotateX[index] + speed;
+          if(roX > 360) roX = roX - 360;
+          rotateX[index] = roX;
+          var index = 9;
+          if(roX > 60 && roX < 300) index = 0;
+          $(dataItem).css({
+            "transform":"rotateX(" + roX + "deg)  rotateY(180deg) rotateZ(0deg) translateZ(-" + translateZ + "px)",
+            "z-index" : index
+          });
+        });
+      }
+    </script>
+  </body>
+</html>

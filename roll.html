@@ -1,0 +1,36 @@
+<html>
+  <head>
+    <style>
+    </style>
+  </head>
+  <input id="price" type="text">
+  <button onclick="rollOne()">抽奖</button>
+  <body>
+    <script>
+      function rollOne(){
+        var list = [
+          "莱特爱希	",
+          "Molestia	",
+          "时光君	",
+          "zzzz.	",
+          "泥沼⊙v⊙大人	",
+          "Ray Anqd	",
+          "海的猫不会哭ฅ",
+        ]
+        var a = 0;
+        var input = document.getElementById("price");
+        var b = setInterval(function(){
+          input.value = roll(list);
+          a++;
+          if(a == 500) clearInterval(b);
+        })
+        return roll(list);
+
+      }
+      function roll(list){
+        var a = list[Math.floor(Math.random()*list.length)];
+        return a;
+      }
+    </script>
+  </body>
+</html>
